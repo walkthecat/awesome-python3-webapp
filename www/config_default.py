@@ -12,6 +12,6 @@ configs = {
         'db': 'dbtest'
     },
     'session': {
-        'secret': 'dbtest'
+        'secret': 'Awesome'
     }
 }
