@@ -23,11 +23,11 @@
                             email: email,
                             passwd: this.passwd === '' ? '' : CryptoJS.SHA1(email + ':' + this.passwd).toString()
                         };
-                    $.post('/api/authenticate', data, function (err, result) {
+                    $form.postJSON('/api/authenticate', data, function (err, result) {
                         if (!err) {
                             location.assign('/');
                         }
-                    }, "json");
+                    });
                 }
             }
         });

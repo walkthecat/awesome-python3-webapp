@@ -148,7 +148,9 @@ class Model(dict, metaclass=ModelMetaclass):
         try:
             return self[key]
         except KeyError:
+            # 没有参数时返回空
             raise AttributeError(r"'Model' object has no attribute '%s'" & key)
+            # return None
 
     def __setattr__(self, key, value):
         self[key] = value

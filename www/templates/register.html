@@ -26,29 +26,28 @@
                     event.preventDefault();
                     var $form = $('#vm');
                     if (!this.name.trim()) {
-                        return UIkit.modal.alert('请输入名字');
+                        return $form.showFormError('请输入名字');
                     }
                     if (!validateEmail(this.email.trim().toLowerCase())) {
-                        return UIkit.modal.alert('请输入正确的Email地址');
+                        return $form.showFormError('请输入正确的Email地址');
                     }
                     if (this.password1.length < 6) {
-                        return UIkit.modal.alert('口令长度至少为6个字符');
+                        return $form.showFormError('口令长度至少为6个字符');
                     }
                     if (this.password1 !== this.password2) {
-                        return UIkit.modal.alert('两次输入的口令不一致');
+                        return $form.showFormError('两次输入的口令不一致');
                     }
                     var email = this.email.trim().toLowerCase();
-                    $.post('/api/users', {
+                    $form.postJSON('/api/users', {
                         name: this.name.trim(),
                         email: email,
                         passwd: CryptoJS.SHA1(email + ':' + this.password1).toString()
-                    }, function (e) {
-                        if (e.message) {
-                            console.log(e);
-                            return UIkit.modal.alert(e.message);
+                    }, function (err, r) {
+                        if (err) {
+                            return $form.showFormError(err);
                         }
                         return location.assign('/');
-                    }, "json");
+                    });
                 }
             }
         });
